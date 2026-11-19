@@ -1,0 +1,549 @@
+:root {
+  --bg: #fafafa;
+  --text: #1a1a1a;
+  --accent: #d62300;
+  --accent-dark: #b01d00;
+  --card: #ffffff;
+  --radius: 14px;
+  --font: Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 18px;
+}
+
+#topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--card);
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+}
+
+#title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#back-btn {
+  font-size: 16px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 10px;
+  background: #eee;
+  cursor: pointer;
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+h1 {
+  color: var(--accent);
+  font-size: 32px;
+  margin-top: 0;
+}
+
+.big-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.big-btn {
+  font-size: 24px;
+  padding: 32px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  text-align: left;
+}
+
+.big-btn:hover {
+  background: var(--accent-dark);
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.tile {
+  background: var(--card);
+  border: 1px solid #e5e5e5;
+  border-radius: var(--radius);
+  padding: 24px;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: left;
+}
+
+.tile:hover {
+  border-color: var(--accent);
+}
+
+.hint {
+  color: #777;
+  margin-top: 24px;
+}
+
+/* --- Карточки --- */
+
+.flashcard {
+  perspective: 1400px;
+  margin: 24px 0;
+  cursor: pointer;
+  min-height: 280px;
+}
+
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.flashcard-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: var(--card);
+  border: 1px solid #e5e5e5;
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+  background: #fff8f6;
+  border-color: #f0d5cd;
+}
+
+.flashcard-q {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0 0 12px;
+}
+
+.flashcard-details {
+  font-size: 18px;
+  color: #555;
+  margin: 0 0 20px;
+}
+
+.flashcard-hint {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+.flashcard-a {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--accent);
+  margin: 0 0 20px;
+}
+
+.flashcard-controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.fc-btn {
+  font-size: 20px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: white;
+  transition: background 0.15s;
+}
+
+.fc-show {
+  background: var(--accent);
+}
+
+.fc-show:hover {
+  background: var(--accent-dark);
+}
+
+.fc-yes {
+  background: #2e7d32;
+}
+
+.fc-yes:hover {
+  background: #1b5e20;
+}
+
+.fc-no {
+  background: #c62828;
+}
+
+.fc-no:hover {
+  background: #8e0000;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* --- Таймер-тренажёр --- */
+
+.timer-progress {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 8px 0 24px;
+  font-size: 15px;
+  color: #555;
+}
+
+.timer-progress-text {
+  white-space: nowrap;
+}
+
+.timer-progress-score {
+  white-space: nowrap;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.timer-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.timer-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.timer-question {
+  background: var(--card);
+  border: 1px solid #e5e5e5;
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.timer-cat {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #999;
+  margin-bottom: 12px;
+}
+
+.timer-q-text {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0 0 16px;
+}
+
+.timer-q-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timer-q-product {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.timer-q-place {
+  font-size: 16px;
+  color: #666;
+}
+
+.timer-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.timer-opt {
+  font-size: 19px;
+  padding: 20px 24px;
+  border: 2px solid #e5e5e5;
+  border-radius: var(--radius);
+  background: var(--card);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.timer-opt:hover {
+  border-color: var(--accent);
+}
+
+.timer-opt.correct {
+  background: #e8f5e9;
+  border-color: #2e7d32;
+  color: #1b5e20;
+  font-weight: bold;
+}
+
+.timer-opt.wrong {
+  background: #ffebee;
+  border-color: #c62828;
+  color: #8e0000;
+  font-weight: bold;
+}
+
+.timer-footer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.timer-hint {
+  color: #999;
+}
+
+.timer-next {
+  font-size: 20px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+}
+
+.timer-next:hover {
+  background: var(--accent-dark);
+}
+
+.timer-result {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid #e5e5e5;
+  margin-bottom: 24px;
+}
+
+.timer-result-score {
+  font-size: 64px;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.timer-result-percent {
+  font-size: 24px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.timer-result-verdict {
+  font-size: 20px;
+  margin-top: 16px;
+}
+
+/* --- Температурный светофор --- */
+
+.temp-test-temp {
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--accent);
+  margin-top: 8px;
+}
+
+.temp-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.temp-opt {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 28px;
+  border: 3px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.temp-opt:disabled {
+  cursor: default;
+}
+
+.temp-yes {
+  background: #2e7d32;
+}
+
+.temp-yes:hover:not(:disabled) {
+  background: #1b5e20;
+}
+
+.temp-no {
+  background: #c62828;
+}
+
+.temp-no:hover:not(:disabled) {
+  background: #8e0000;
+}
+
+.temp-opt.correct {
+  border-color: #1b5e20;
+  box-shadow: 0 0 0 3px #a5d6a7;
+}
+
+.temp-opt.wrong {
+  border-color: #8e0000;
+  box-shadow: 0 0 0 3px #ef9a9a;
+  opacity: 0.7;
+}
+
+.temp-opt:disabled:not(.correct):not(.wrong) {
+  opacity: 0.4;
+}
+
+.temp-range-info {
+  margin-bottom: 16px;
+  font-size: 17px;
+  color: #555;
+}
+
+.temp-range-info strong {
+  color: var(--accent);
+}
+
+/* --- Калькулятор порций --- */
+
+.portion-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.portion-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid #e5e5e5;
+  border-radius: var(--radius);
+  align-items: center;
+}
+
+.portion-name {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.portion-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+  text-align: right;
+}
+
+.portion-fingers {
+  font-size: 15px;
+  color: #666;
+  text-align: right;
+}
+
+.portion-color {
+  background: var(--card);
+  border: 1px solid #e5e5e5;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+
+.portion-color-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 17px;
+}
+
+.portion-color-row strong {
+  color: var(--accent);
+}
+
+.portion-flags {
+  background: #fff8f6;
+  border: 1px solid #f0d5cd;
+  border-radius: var(--radius);
+  padding: 16px 20px 16px 40px;
+  margin-bottom: 24px;
+}
+
+.portion-flags li {
+  margin: 4px 0;
+}
+
+.quiz-mistakes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.quiz-mistake {
+  background: #fff8f6;
+  border: 1px solid #f0d5cd;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+}
+
+.quiz-mistake-q {
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+.quiz-mistake-wrong {
+  color: #c62828;
+  margin: 4px 0;
+}
+
+.quiz-mistake-right {
+  color: #2e7d32;
+  margin: 4px 0 12px;
+}
